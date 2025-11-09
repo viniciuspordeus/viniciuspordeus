@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzaria Carioca - A Melhor Pizzaria do RJ!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5f0 0%, #ffe8e0 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #ea580c 0%, #dc2626 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .logo-text p {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav button {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .nav button:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .nav button.active {
+            background: white;
+            color: #ea580c;
+            font-weight: bold;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .main-content {
+            padding: 3rem 0;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero img {
+            width: 250px;
+            height: 250px;
+            margin-bottom: 2rem;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            color: #ea580c;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #374151;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #ea580c;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #c2410c;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #ea580c;
+            border: 2px solid #ea580c;
+        }
+
+        .btn-secondary:hover {
+            background: #fff5f0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .card h2 {
+            font-size: 2.5rem;
+            color: #ea580c;
+            margin-bottom: 1.5rem;
+        }
+
+        .card p {
+            font-size: 1.125rem;
+            color: #374151;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: #fff5f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ea580c;
+        }
+
+        .stat-card .label {
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+
+        .pizza-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pizza-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .pizza-card:hover {
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+        }
+
+        .pizza-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .pizza-icon {
+            font-size: 2rem;
+        }
+
+        .pizza-card h3 {
+            font-size: 1.5rem;
+            color: #1f2937;
+        }
+
+        .pizza-card .desc {
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .pizza-card .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ea580c;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #ea580c;
+        }
+
+        .contact-item h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ea580c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        table thead {
+            background: #ea580c;
+            color: white;
+        }
+
+        table th,
+        table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        table tbody tr:hover {
+            background: #fff5f0;
+        }
+
+        .btn-delete {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-delete:hover {
+            background: #b91c1c;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        footer {
+            background: linear-gradient(90deg, #ea580c 0%, #dc2626 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        footer .footer-logo {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ea580c;
+                padding: 1rem;
+            }
+
+            .nav.show {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .card h2 {
+                font-size: 2rem;
+            }
+
+            table {
+                font-size: 0.875rem;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="Logo_png.png"  alt="Pizzaria Carioca Logo" style="width: 60px; height: 60px; border-radius: 50%; background: white; padding: 5px;">
+                    <div class="logo-text">
+                        <h1>Pizzaria Carioca</h1>
+                        <p>Sabor que contagia!</p>
+                    </div>
+                </div>
+                <nav class="nav" id="mainNav">
+                    <button onclick="showSection('home')" class="active">🏠 Home</button>
+                    <button onclick="showSection('quemsomos')">👥 Quem Somos</button>
+                    <button onclick="showSection('cardapio')">📖 Cardápio</button>
+                    <button onclick="showSection('contatos')">📞 Contatos</button>
+                    <button onclick="showSection('clientes')">👤 Clientes</button>
+                </nav>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Home Section -->
+            <section id="home" class="section active">
+                <div class="hero">
+                    <img src="Logo_png.png" alt="Pizza Mascot">
+                    <h2>Bem-vindo à Pizzaria Carioca!</h2>
+                    <p>A melhor pizza do RJ! Massa artesanal, ingredientes frescos e muito sabor em cada fatia. Tradição e qualidade que conquistam gerações.</p>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="showSection('cardapio')">Ver Cardápio</button>
+                        <button class="btn btn-secondary" onclick="showSection('contatos')">Entre em Contato</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quem Somos Section -->
+            <section id="quemsomos" class="section">
+                <div class="card">
+                    <h2>Quem Somos</h2>
+                    <p>A Pizzaria Carioca nasceu em 1995 no coração do Rio de Janeiro, com o objetivo de levar o verdadeiro sabor da pizza italiana aos cariocas, com aquele toque brasileiro especial.</p>
+                    <p>Nossa massa é preparada diariamente de forma artesanal, seguindo receitas tradicionais que passam de geração em geração. Utilizamos apenas ingredientes frescos e selecionados.</p>
+                    <p>Com mais de 25 anos de história, nos tornamos referência em qualidade e sabor, conquistando o coração de milhares de clientes que voltam sempre para saborear nossas pizzas especiais.</p>
+                    <div class="stats">
+                        <div class="stat-card">
+                            <div class="number">25+</div>
+                            <div class="label">Anos de História</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="number">50k+</div>
+                            <div class="label">Pizzas Entregues</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="number">4.9⭐</div>
+                            <div class="label">Avaliação Média</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cardápio Section -->
+            <section id="cardapio" class="section">
+                <h2 style="text-align: center; color: #ea580c; font-size: 2.5rem; margin-bottom: 2rem;">Nosso Cardápio</h2>
+                <div class="pizza-grid">
+                    <div class="pizza-card">
+                        <div class="pizza-header">
+                            <span class="pizza-icon">🍕</span>
+                            <h3>Calabresa</h3>
+                        </div>
+                        <p class="desc">Calabresa, cebola, mussarela</p>
+                        <div class="price">R$ 45,00</div>
+                        <button class="btn btn-primary" style="width: 100%;">Pedir Agora</button>
+                    </div>
+                    <div class="pizza-card">
+                        <div class="pizza-header">
+                            <span class="pizza-icon">🍕</span>
+                            <h3>Margherita</h3>
+                        </div>
+                        <p class="desc">Tomate, mussarela, manjericão</p>
+                        <div class="price">R$ 42,00</div>
+                        <button class="btn btn-primary" style="width: 100%;">Pedir Agora</button>
+                    </div>
+                    <div class="pizza-card">
+                        <div class="pizza-header">
+                            <span class="pizza-icon">🍕</span>
+                            <h3>Portuguesa</h3>
+                        </div>
+                        <p class="desc">Presunto, ovos, cebola, azeitonas</p>
+                        <div class="price">R$ 48,00</div>
+                        <button class="btn btn-primary" style="width: 100%;">Pedir Agora</button>
+                    </div>
+                    <div class="pizza-card">
+                        <div class="pizza-header">
+                            <span class="pizza-icon">🍕</span>
+                            <h3>Quatro Queijos</h3>
+                        </div>
+                        <p class="desc">Mussarela, provolone, gorgonzola, parmesão</p>
+                        <div class="price">R$ 50,00</div>
+                        <button class="btn btn-primary" style="width: 100%;">Pedir Agora</button>
+                    </div>
+                    <div class="pizza-card">
+                        <div class="pizza-header">
+                            <span class="pizza-icon">🍕</span>
+                            <h3>Frango Catupiry</h3>
+                        </div>
+                        <p class="desc">Frango desfiado, catupiry, milho</p>
+                        <div class="price">R$ 46,00</div>
+                        <button class="btn btn-primary" style="width: 100%;">Pedir Agora</button>
+                    </div>
+                    <div class="pizza-card">
+                        <div class="pizza-header">
+                            <span class="pizza-icon">🍕</span>
+                            <h3>Napolitana</h3>
+                        </div>
+                        <p class="desc">Mussarela, tomate, parmesão, manjericão</p>
+                        <div class="price">R$ 47,00</div>
+                        <button class="btn btn-primary" style="width: 100%;">Pedir Agora</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contatos Section -->
+            <section id="contatos" class="section">
+                <div class="card" style="max-width: 800px; margin: 0 auto;">
+                    <h2>Entre em Contato</h2>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div>
+                                <h3>Telefone</h3>
+                                <p>(21) 3456-7890</p>
+                                <p>(21) 98765-4321</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div>
+                                <h3>Endereço</h3>
+                                <p>Rua das Pizzas, 123</p>
+                                <p>Copacabana - Rio de Janeiro, RJ</p>
+                                <p>CEP: 22000-000</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">🕐</div>
+                            <div>
+                                <h3>Horário de Funcionamento</h3>
+                                <p>Terça a Domingo: 18h às 23h</p>
+                                <p>Segunda: Fechado</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Clientes Section -->
+            <section id="clientes" class="section">
+                <div class="header-actions">
+                    <h2 style="color: #ea580c; font-size: 2.5rem;">Clientes Cadastrados</h2>
+                    <button class="btn btn-primary" onclick="toggleCadastro()">
+                        <span id="btnCadastroText">➕ Novo Cliente</span>
+                    </button>
+                </div>
+
+                <div id="formCadastro" class="card" style="display: none;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Cadastrar Novo Cliente</h3>
+                    <div class="form-group">
+                        <label>Nome Completo *</label>
+                        <input type="text" id="inputNome" placeholder="Digite o nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail *</label>
+                        <input type="email" id="inputEmail" placeholder="exemplo@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone *</label>
+                        <input type="tel" id="inputTelefone" placeholder="(21) 99999-9999">
+                    </div>
+                    <div class="form-group">
+                        <label>Endereço *</label>
+                        <input type="text" id="inputEndereco" placeholder="Rua, número, bairro, cidade">
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="cadastrarCliente()">Cadastrar Cliente</button>
+                </div>
+
+                <div class="card">
+                    <div id="clientesTable"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <img src="Logo_png.png" alt="Logo" style="width: 40px; height: 40px; display: inline-block; vertical-align: middle; margin-right: 10px;">
+                Pizzaria Carioca
+            </div>
+            <p>© 2025 Pizzaria Carioca. Todos os direitos reservados.</p>
+            <p style="opacity: 0.9; margin-top: 0.5rem;">Desenvolvido com HTML, CSS e JavaScript! 🍕</p>
+        </div>
+    </footer>
+
+    <script>
+        // Banco de dados em memória
+        let clientes = [];
+        let showingForm = false;
+
+        // Carregar clientes do localStorage
+        function loadClientes() {
+            const stored = localStorage.getItem('pizzaria_clientes');
+            if (stored) {
+                clientes = JSON.parse(stored);
+            }
+            renderClientes();
+        }
+
+        // Salvar clientes no localStorage
+        function saveClientes() {
+            localStorage.setItem('pizzaria_clientes', JSON.stringify(clientes));
+        }
+
+        // Navegação entre seções
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+
+            const buttons = document.querySelectorAll('.nav button');
+            buttons.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Fechar menu mobile
+            document.getElementById('mainNav').classList.remove('show');
+        }
+
+        // Toggle menu mobile
+        function toggleMobileMenu() {
+            document.getElementById('mainNav').classList.toggle('show');
+        }
+
+        // Toggle formulário de cadastro
+        function toggleCadastro() {
+            showingForm = !showingForm;
+            const form = document.getElementById('formCadastro');
+            const btnText = document.getElementById('btnCadastroText');
+            
+            if (showingForm) {
+                form.style.display = 'block';
+                btnText.textContent = '❌ Cancelar';
+            } else {
+                form.style.display = 'none';
+                btnText.textContent = '➕ Novo Cliente';
+                limparFormulario();
+            }
+        }
+
+        // Limpar formulário
+        function limparFormulario() {
+            document.getElementById('inputNome').value = '';
+            document.getElementById('inputEmail').value = '';
+            document.getElementById('inputTelefone').value = '';
+            document.getElementById('inputEndereco').value = '';
+        }
+
+        // Cadastrar cliente
+        function cadastrarCliente() {
+            const nome = document.getElementById('inputNome').value.trim();
+            const email = document.getElementById('inputEmail').value.trim();
+            const telefone = document.getElementById('inputTelefone').value.trim();
+            const endereco = document.getElementById('inputEndereco').value.trim();
+
+            if (!nome || !email || !telefone || !endereco) {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+
+            const novoCliente = {
+                id: Date.now(),
+                nome,
+                email,
+                telefone,
+                endereco,
+                dataCadastro: new Date().toLocaleDateString('pt-BR')
+            };
+
+            clientes.push(novoCliente);
+            saveClientes();
+            renderClientes();
+            toggleCadastro();
+            alert('Cliente cadastrado com sucesso!');
+        }
+
+        // Deletar cliente
+        function deletarCliente(id) {
+            if (confirm('Deseja realmente excluir este cliente?')) {
+                clientes = clientes.filter(c => c.id !== id);
+                saveClientes();
+                renderClientes();
+            }
+        }
+
+        // Renderizar tabela de clientes
+        function renderClientes() {
+            const container = document.getElementById('clientesTable');
+            
+            if (clientes.length === 0) {
+                container.innerHTML = '<div class="empty-state">Nenhum cliente cadastrado ainda. Clique em "Novo Cliente" para começar!</div>';
+                return;
+            }
+
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                            <th>Telefone</th>
+                            <th>Endereço</th>
+                            <th>Data Cadastro</th>
+                            <th style="text-align: center;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            clientes.forEach(cliente => {
+                html += `
+                    <tr>
+                        <td>${cliente.nome}</td>
+                        <td>${cliente.email}</td>
+                        <td>${cliente.telefone}</td>
+                        <td>${cliente.endereco}</td>
+                        <td>${cliente.dataCadastro}</td>
+                        <td style="text-align: center;">
+                            <button class="btn-delete" onclick="deletarCliente(${cliente.id})">🗑️ Excluir</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        // Inicializar
+        loadClientes();
+    </script>
+</body>
+</html>
